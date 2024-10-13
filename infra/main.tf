@@ -2,8 +2,8 @@ terraform {
   cloud {
     organization = "westtt"
     workspaces {
-      name = "test-workspace"
-    }  
+      name = "jake-grella"
+    }
   }
 
   required_providers {
@@ -45,7 +45,7 @@ resource "neon_project" "this" {
 resource "neon_branch" "this" {
   project_id = neon_project.this.id
   parent_id  = neon_project.this.default_branch_id
-  name       = "mybranch"
+  name       = "development"
 }
 
 resource "neon_endpoint" "this" {
@@ -66,22 +66,22 @@ resource "neon_database" "this" {
   project_id = neon_project.this.id
   branch_id  = neon_branch.this.id
   owner_name = neon_role.this.name
-  name       = "mydb"
+  name       = "db"
 }
 
 resource "aws_secretsmanager_secret" "this" {
-  name                    = "neon/mybranch/mydb/myrole"
+  name                    = "neon/development/db/myrole"
   description             = "Neon SaaS db access details"
   recovery_window_in_days = 0
 
   tags = {
-    "project"  = "demo"
+    "project"  = "jake-grella"
     "platform" = "neon"
   }
 }
 
 resource "aws_secretsmanager_secret_version" "this" {
-  secret_id     = aws_secretsmanager_secret.this.id
+  secret_id = aws_secretsmanager_secret.this.id
   secret_string = jsonencode({
     host     = neon_endpoint.this.host
     user     = neon_role.this.name
@@ -98,8 +98,8 @@ data "aws_iam_policy_document" "neon_access_secret" {
   }
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "secretsmanager:GetResourcePolicy",
       "secretsmanager:GetSecretValue",
       "secretsmanager:DescribeSecret",
@@ -112,7 +112,7 @@ data "aws_iam_policy_document" "neon_access_secret" {
 }
 
 resource "aws_iam_policy" "neon_access_secret" {
-  name   = "mybranch-mydb-myrole"
+  name   = "development-db-myrole"
   path   = "/neon/read-only/"
   policy = data.aws_iam_policy_document.neon_access_secret.json
 }

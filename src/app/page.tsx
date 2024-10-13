@@ -1,9 +1,13 @@
+import Header from "@/components/Header";
+
 const Home = async () => {
   return (
     <main className=''>
-        <h1>hello world</h1>
+        <Header />
+        <h2>blog</h2>
+        <h2>recent work</h2>
     </main>
   );
 }
 
-export default Home
+export default Home;

@@ -1,7 +1,7 @@
 const projectInfo = {
     company: {
-        name: 'Test',
-        description: 'Test company description'
+        name: 'Jake Grella',
+        description: 'Jake Grella is a software engineer, web designer, and owner of web design firm Westtt'
     }
 }
 
