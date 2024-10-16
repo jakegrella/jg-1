@@ -12,6 +12,12 @@ export const Posts: CollectionConfig = {
     },
     fields: [
         {
+            name: 'id',
+            type: 'text',
+            required: true,
+            unique: true
+        },
+        {
             name: 'title',
             type: 'text',
             required: true
@@ -20,6 +26,15 @@ export const Posts: CollectionConfig = {
             name: 'subtitle',
             type: 'text',
             required: true
+        },
+        {
+            name: 'slug',
+            type: 'text',
+            required: true,
+            validate: (value: any) => {
+                const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+                return slugRegex.test(value) ? true : 'Invalid slug format. Use lowercase letters, numbers, and hyphens only. No leading or trailing hyphens.';
+            }
         },
         {
             name: 'body',

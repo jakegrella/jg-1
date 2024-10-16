@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="flex justify-between">
+        <footer className="flex justify-between mt-8">
             <p>©️ 2024 jake grella</p>
             <nav className="flex flex-row gap-2">
                 <ul>

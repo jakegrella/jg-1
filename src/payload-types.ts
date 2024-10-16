@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     p: P;
+    work: Work;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -86,9 +87,10 @@ export interface Media {
  * via the `definition` "p".
  */
 export interface P {
-  id: number;
+  id: string;
   title: string;
   subtitle: string;
+  slug: string;
   body: {
     root: {
       type: string;
@@ -109,6 +111,18 @@ export interface P {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work".
+ */
+export interface Work {
+  id: number;
+  title: string;
+  subtitle: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -124,7 +138,11 @@ export interface PayloadLockedDocument {
       } | null)
     | ({
         relationTo: 'p';
-        value: number | P;
+        value: string | P;
+      } | null)
+    | ({
+        relationTo: 'work';
+        value: number | Work;
       } | null);
   globalSlug?: string | null;
   user: {

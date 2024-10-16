@@ -1,3 +1,4 @@
+// copied and edited from https://github.com/payloadcms/payload/blob/067d353cdd2869623a2361322625b685ff355f5e/templates/website/src/components/RichText/index.tsx
 
 import React from 'react'
 import { cn } from '@/utils/cn'
